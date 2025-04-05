@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Programme d'Affiliation Deriv</title>
+    <link rel="icon" type="image/png" href="deriv.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coral: '#FF444F',
+                        'coral-hover': '#E12E3A',
+                        gold: '#DAAF0A',
+                        'gold-hover': '#BD9808',
+                        'neutral-light': '#F6F7F8',
+                        'black-72': 'rgba(0,0,0,0.72)',
+                        'black-8': 'rgba(0,0,0,0.08)',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'large': '24px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .doc-sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #FF444F transparent;
+        }
+        .doc-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .doc-sidebar::-webkit-scrollbar-thumb {
+            background-color: #FF444F;
+            border-radius: 3px;
+        }
+        .doc-content pre {
+            background: #1E293B;
+            color: #F8FAFC;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        .doc-content code {
+            background: #F1F5F9;
+            color: #334155;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body class="font-inter bg-white text-gray-900">
+    <!-- Header -->
+    <header class="sticky top-0 bg-white z-50 shadow-sm rounded-b-[24px]">
+        <div class="container mx-auto px-4 py-4 max-w-6xl">
+            <div class="flex justify-between items-center">
+                <a href="/" class="logo_icon w-embed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="97" height="48" viewBox="0 0 97 48" fill="none">
+                        <path d="M26.9238 10.8089L25.6912 17.7964H21.4125C17.4207 17.7964 13.6159 21.0293 12.9107 25.0195L12.6122 26.7179C11.9103 30.7082 14.5737 33.9411 18.5654 33.9411H22.1341C25.0434 33.9411 27.815 31.5869 28.3267 28.6787L31.6133 10.0553L26.9238 10.8089ZM23.8878 28.0196C23.7304 28.918 22.9213 29.6492 22.0226 29.6492H19.8545C18.0603 29.6492 16.8598 28.1934 17.1747 26.3966L17.3617 25.3376C17.6798 23.5441 19.392 22.0851 21.1861 22.0851H24.9347L23.8878 28.0196ZM59.8757 33.9408L62.6834 18.019H67.1245L64.3168 33.9408H59.8757ZM60.3561 18.2026C60.1335 19.4655 59.9099 20.7284 59.6873 21.9913C57.5833 21.3377 55.4125 21.5458 54.7456 21.6788C54.0254 25.7671 53.3042 29.8564 52.583 33.9447H48.1389C48.7424 30.5239 50.8042 18.8415 50.8042 18.8415C52.2496 18.2432 55.7991 17.0289 60.3561 18.2026ZM42.3494 17.7937H38.8924C35.5238 17.7937 32.3128 20.5217 31.719 23.8889L31.0204 27.8464C30.4267 31.2137 32.6736 33.9417 36.0422 33.9417H43.3959L44.1503 29.6629H37.2392C36.1175 29.6629 35.3664 28.7546 35.5665 27.63L35.5895 27.4956H46.7316L47.3679 23.8889C47.9615 20.5217 45.7148 17.7937 42.3462 17.7937H42.3494ZM42.9103 23.548L42.8841 23.7775H36.2586L36.2947 23.5742C36.4947 22.4528 37.5181 21.4659 38.643 21.4659H41.231C42.343 21.4659 43.0941 22.4365 42.9103 23.548ZM80.0083 18.019H84.4526C82.9387 22.0426 79.4691 28.887 76.1082 33.9408H71.6639C70.1212 29.1308 69.125 22.429 68.9349 18.019H73.3794C73.4596 19.4576 74.1038 24.7933 74.839 28.5208C76.8555 24.8945 79.0786 20.1366 80.0049 18.019H80.0083Z" fill="#FF444F"></path>
+                    </svg>
+                </a>
+                
+                <!-- Menu desktop -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-6 items-center">
+                        <li><a href="/" class="font-medium text-sm hover:text-coral transition">Accueil</a></li>
+                        <li><a href="#getting-started" class="font-medium text-sm hover:text-coral transition">Documentation</a></li>
+                        <li><a href="#faq" class="font-medium text-sm hover:text-coral transition">FAQ</a></li>
+                        <li><a href="#contact" class="font-medium text-sm hover:text-coral transition">Contact</a></li>
+                        <li><a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="bg-coral text-white px-4 py-2 rounded-[24px] font-semibold text-sm hover:bg-coral-hover hover:-translate-y-0.5 transition">S'inscrire</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Menu mobile -->
+                <button id="hamburger" class="md:hidden text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Menu mobile déroulant -->
+            <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 bg-white mt-4 py-4 px-6 shadow-lg rounded-lg">
+                <ul class="space-y-4">
+                    <li><a href="/" class="block font-medium hover:text-coral transition">Accueil</a></li>
+                    <li><a href="#getting-started" class="block font-medium hover:text-coral transition">Documentation</a></li>
+                    <li><a href="#faq" class="block font-medium hover:text-coral transition">FAQ</a></li>
+                    <li><a href="#contact" class="block font-medium hover:text-coral transition">Contact</a></li>
+                    <li><a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="block bg-coral text-white px-4 py-2 rounded-[24px] font-semibold text-center mt-2 hover:bg-coral-hover transition">S'inscrire</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar -->
+       
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-10 doc-content">
+            <div class="max-w-3xl mx-auto">
+                <!-- Hero Section -->
+                <section class="mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Documentation du Programme d'Affiliation Deriv</h1>
+                    <p class="text-xl text-gray-600 mb-6">Tout ce que vous devez savoir pour réussir en tant qu'affilié Deriv</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#getting-started" class="bg-coral text-white px-6 py-3 rounded-lg font-semibold hover:bg-coral-hover transition">Commencer</a>
+                        <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="border border-coral text-coral px-6 py-3 rounded-lg font-semibold hover:bg-coral/10 transition">Devenir affilié</a>
+                    </div>
+                </section>
+
+                <!-- Getting Started -->
+                <section id="getting-started" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Premiers pas</h2>
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-coral">
+                            <h3 class="text-xl font-semibold mb-3">1. Création de compte</h3>
+                            <p class="text-gray-700 mb-4">Pour devenir affilié Deriv, vous devez d'abord créer un compte :</p>
+                            <ol class="list-decimal pl-5 space-y-2 text-gray-700">
+                                <li>Rendez-vous sur <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="text-coral hover:underline">la page d'inscription</a></li>
+                                <li>Remplissez le formulaire avec vos informations</li>
+                                <li>Validez votre email</li>
+                                <li>Complétez votre profil d'affilié</li>
+                            </ol>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-coral">
+                            <h3 class="text-xl font-semibold mb-3">2. Validation du compte</h3>
+                            <p class="text-gray-700 mb-4">Votre compte doit être validé avant de pouvoir commencer :</p>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Fournissez les documents d'identité requis</li>
+                                <li>Attendez la vérification (généralement sous 48h)</li>
+                                <li>Vous recevrez une confirmation par email</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-coral">
+                            <h3 class="text-xl font-semibold mb-3">3. Accéder au tableau de bord</h3>
+                            <p class="text-gray-700 mb-4">Une fois validé, connectez-vous à votre espace affilié :</p>
+                            <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                                <p class="font-mono text-sm">URL: <span class="text-coral">https://affiliates.deriv.com/login</span></p>
+                            </div>
+                            <p class="text-gray-700">Explorez les différentes sections pour comprendre toutes les fonctionnalités disponibles.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How It Works -->
+                <section id="how-it-works" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Comment ça marche</h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-3">Modèle d'affiliation</h3>
+                        <p class="text-gray-700 mb-4">Le programme d'affiliation Deriv fonctionne sur un modèle à plusieurs niveaux :</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <div class="text-coral text-2xl mb-2">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <h4 class="font-semibold mb-2">Niveau 1</h4>
+                                <p class="text-gray-600 text-sm">Vos filleuls directs</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <div class="text-coral text-2xl mb-2">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4 class="font-semibold mb-2">Niveaux 2-10</h4>
+                                <p class="text-gray-600 text-sm">Le réseau de vos filleuls</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                                <div class="text-coral text-2xl mb-2">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                                <h4 class="font-semibold mb-2">Structure MLM</h4>
+                                <p class="text-gray-600 text-sm">Gains sur plusieurs niveaux</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-700">Vous gagnez des commissions sur l'activité de trading des clients que vous parrainez directement (niveau 1) ainsi que sur l'activité des clients parrainés par vos filleuls (jusqu'au niveau 10).</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">Processus de parrainage</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">1</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Obtenez votre lien de parrainage</h4>
+                                    <p class="text-gray-600 text-sm">Générez des liens uniques dans votre tableau de bord affilié</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">2</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Partagez votre lien</h4>
+                                    <p class="text-gray-600 text-sm">Diffusez vos liens via vos canaux de marketing</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">3</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Un client s'inscrit via votre lien</h4>
+                                    <p class="text-gray-600 text-sm">Le client est attribué à votre compte affilié</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">4</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Le client effectue des trades</h4>
+                                    <p class="text-gray-600 text-sm">Vous gagnez des commissions sur leur volume de trading</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Commission Structure -->
+                <section id="commission-structure" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Structure des commissions</h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Taux de commission</h3>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Niveau</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Taux standard</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Taux premium*</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Niveau 1</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1.5%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Niveau 2</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.5%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Niveaux 3-10</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.1%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">0.5%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <p class="text-sm text-gray-500 mt-4">* Le statut premium est accordé aux affiliés performants avec un volume de parrainage élevé.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4">Calcul des commissions</h3>
+                        <p class="text-gray-700 mb-4">Vos commissions sont calculées selon la formule suivante :</p>
+                        
+                        <div class="bg-gray-800 text-white p-4 rounded-lg mb-4 overflow-x-auto">
+                            <pre><code>Commission = Volume de trading × Taux de commission</code></pre>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4">
+                            <h4 class="font-medium mb-2 text-coral">Exemple de calcul</h4>
+                            <p class="text-gray-700 mb-2">Si un client de votre niveau 1 trade 100,000 USD en un mois :</p>
+                            <p class="text-gray-700"><span class="font-semibold">100,000 × 1.5% = 1,500 USD</span> de commission</p>
+                        </div>
+                        
+                        <p class="text-gray-700">Les commissions sont calculées en temps réel et mises à jour quotidiennement dans votre tableau de bord.</p>
+                    </div>
+                </section>
+
+                <!-- Marketing Tools -->
+                <section id="marketing-tools" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Outils marketing</h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Liens de suivi</h3>
+                        <p class="text-gray-700 mb-4">Générez des liens de suivi personnalisés pour vos campagnes :</p>
+                        
+                        <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                            <p class="font-mono text-sm break-all">https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/?utm_source=[SOURCE]&utm_medium=[MEDIUM]&utm_campaign=[CAMPAIGN]</p>
+                        </div>
+                        
+                        <p class="text-gray-700 mb-4">Paramètres disponibles :</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li><code>utm_source</code> : La source du trafic (ex: facebook, youtube)</li>
+                            <li><code>utm_medium</code> : Le medium (ex: cpc, banner, email)</li>
+                            <li><code>utm_campaign</code> : Le nom de votre campagne</li>
+                        </ul>
+                        
+                        <p class="text-gray-700">Ces paramètres vous permettent de suivre l'efficacité de vos différentes campagnes dans votre tableau de bord.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Bannières publicitaires</h3>
+                        <p class="text-gray-700 mb-4">Utilisez nos bannières pré-conçues pour vos campagnes :</p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                <img src="https://via.placeholder.com/300x250" alt="Bannière 300x250" class="w-full">
+                                <div class="p-2 bg-gray-50">
+                                    <p class="text-xs text-gray-600">300 × 250</p>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                <img src="https://via.placeholder.com/728x90" alt="Bannière 728x90" class="w-full">
+                                <div class="p-2 bg-gray-50">
+                                    <p class="text-xs text-gray-600">728 × 90</p>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                <img src="https://via.placeholder.com/160x600" alt="Bannière 160x600" class="w-full">
+                                <div class="p-2 bg-gray-50">
+                                    <p class="text-xs text-gray-600">160 × 600</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-700">Téléchargez ces bannières et bien plus encore dans la section <span class="font-semibold">"Ressources"</span> de votre tableau de bord affilié.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4">Landing pages</h3>
+                        <p class="text-gray-700 mb-4">Nous mettons à votre disposition des pages de destination optimisées :</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                                <div class="text-coral mr-4 mt-1">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Page générique</h4>
+                                    <p class="text-gray-600 text-sm">Présentation générale de Deriv et de ses produits</p>
+                                    <a href="#" class="text-coral text-sm hover:underline mt-1 inline-block">Voir un exemple</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                                <div class="text-coral mr-4 mt-1">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Page produits</h4>
+                                    <p class="text-gray-600 text-sm">Focus sur des produits spécifiques (MT5, cTrader, etc.)</p>
+                                    <a href="#" class="text-coral text-sm hover:underline mt-1 inline-block">Voir un exemple</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                                <div class="text-coral mr-4 mt-1">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Page promotionnelle</h4>
+                                    <p class="text-gray-600 text-sm">Pour des offres spéciales et promotions</p>
+                                    <a href="#" class="text-coral text-sm hover:underline mt-1 inline-block">Voir un exemple</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tracking -->
+                <section id="tracking" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Suivi des performances</h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Tableau de bord affilié</h3>
+                        <p class="text-gray-700 mb-4">Votre tableau de bord vous donne accès à toutes les statistiques importantes :</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center mb-3">
+                                    <div class="bg-coral/10 text-coral p-2 rounded-lg mr-3">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <h4 class="font-semibold">Clients</h4>
+                                </div>
+                                <ul class="space-y-2 text-gray-700 text-sm">
+                                    <li class="flex justify-between">
+                                        <span>Nouveaux aujourd'hui</span>
+                                        <span class="font-medium">12</span>
+                                    </li>
+                                    <li class="flex justify-between">
+                                        <span>Total actifs</span>
+                                        <span class="font-medium">143</span>
+                                    </li>
+                                    <li class="flex justify-between">
+                                        <span>Taux de conversion</span>
+                                        <span class="font-medium">3.2%</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center mb-3">
+                                    <div class="bg-coral/10 text-coral p-2 rounded-lg mr-3">
+                                        <i class="fas fa-chart-pie"></i>
+                                    </div>
+                                    <h4 class="font-semibold">Commissions</h4>
+                                </div>
+                                <ul class="space-y-2 text-gray-700 text-sm">
+                                    <li class="flex justify-between">
+                                        <span>Aujourd'hui</span>
+                                        <span class="font-medium">$245.50</span>
+                                    </li>
+                                    <li class="flex justify-between">
+                                        <span>Ce mois</span>
+                                        <span class="font-medium">$4,320.75</span>
+                                    </li>
+                                    <li class="flex justify-between">
+                                        <span>Total</span>
+                                        <span class="font-medium">$28,450.20</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-700">Vous pouvez filtrer les données par période, par source de trafic ou par niveau de parrainage pour analyser plus précisément vos performances.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4">Rapports détaillés</h3>
+                        <p class="text-gray-700 mb-4">Générez des rapports personnalisés pour suivre vos performances :</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                                <div class="text-coral mr-4 mt-1">
+                                    <i class="fas fa-file-csv"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Export CSV</h4>
+                                    <p class="text-gray-600 text-sm">Exportez vos données pour analyse dans Excel ou Google Sheets</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                                <div class="text-coral mr-4 mt-1">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Graphiques personnalisés</h4>
+                                    <p class="text-gray-600 text-sm">Visualisez vos données avec différents types de graphiques</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                                <div class="text-coral mr-4 mt-1">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Alertes</h4>
+                                    <p class="text-gray-600 text-sm">Configurez des alertes pour les événements importants</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payments -->
+                <section id="payments" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Paiements</h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Seuil et fréquence des paiements</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center mb-3">
+                                    <div class="bg-coral/10 text-coral p-2 rounded-lg mr-3">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    </div>
+                                    <h4 class="font-semibold">Seuil minimum</h4>
+                                </div>
+                                <p class="text-gray-700">Le seuil minimum pour un retrait est de <span class="font-semibold">50 USD</span> (ou l'équivalent dans votre devise).</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center mb-3">
+                                    <div class="bg-coral/10 text-coral p-2 rounded-lg mr-3">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <h4 class="font-semibold">Fréquence</h4>
+                                </div>
+                                <p class="text-gray-700">Les paiements sont effectués <span class="font-semibold">tous les 15 jours</span>, autour des 1er et 15 du mois.</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-700">Vos commissions sont accumulées jusqu'à ce que vous atteigniez le seuil minimum. Une fois ce seuil atteint, les fonds sont automatiquement transférés selon le calendrier de paiement.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Méthodes de paiement</h3>
+                        <p class="text-gray-700 mb-4">Plusieurs méthodes de paiement sont disponibles :</p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <div class="border border-gray-200 rounded-lg p-4 flex flex-col items-center">
+                                <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c699e_payment%20method-mastercard.svg" alt="Mastercard" class="h-10 mb-2">
+                                <p class="text-sm text-center">Mastercard</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4 flex flex-col items-center">
+                                <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69a2_payment%20method-bnb.svg" alt="BNB" class="h-10 mb-2">
+                                <p class="text-sm text-center">BNB</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4 flex flex-col items-center">
+                                <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69ac_payment%20method-perfect%20money.svg" alt="Perfect Money" class="h-10 mb-2">
+                                <p class="text-sm text-center">Perfect Money</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4 flex flex-col items-center">
+                                <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69b1_payment%20method-mpesa.svg" alt="M-Pesa" class="h-10 mb-2">
+                                <p class="text-sm text-center">M-Pesa</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-700">Vous pouvez configurer votre méthode de paiement préférée dans la section <span class="font-semibold">"Paramètres de paiement"</span> de votre tableau de bord.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4">Déclaration fiscale</h3>
+                        <p class="text-gray-700 mb-4">En tant qu'affilié, vous êtes responsable de :</p>
+                        
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>Déclarer vos revenus d'affiliation selon les lois de votre pays</li>
+                            <li>Payer les éventuelles taxes sur ces revenus</li>
+                            <li>Conserver les relevés de paiement pour vos dossiers</li>
+                        </ul>
+                        
+                        <p class="text-gray-700">Deriv ne retient aucune taxe à la source sur les paiements d'affiliation. Consultez un expert-comptable pour des conseils spécifiques à votre situation.</p>
+                    </div>
+                </section>
+
+                <!-- Best Practices -->
+                <section id="best-practices" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Bonnes pratiques</h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Maximiser vos revenus</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">1</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Ciblez le bon public</h4>
+                                    <p class="text-gray-600">Concentrez vos efforts sur les personnes intéressées par le trading en ligne. Les communautés de traders, les forums financiers et les groupes d'investissement sont des cibles idéales.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">2</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Créez du contenu de valeur</h4>
+                                    <p class="text-gray-600">Partagez des tutoriels, des analyses de marché ou des conseils de trading. Ce type de contenu établit votre crédibilité et attire des clients qualifiés.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">3</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Utilisez plusieurs canaux</h4>
+                                    <p class="text-gray-600">Diversifiez vos sources de trafic : réseaux sociaux, email marketing, SEO, publicité payante, etc. Cela réduit votre dépendance à un seul canal.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 bg-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">4</div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Analysez et optimisez</h4>
+                                    <p class="text-gray-600">Suivez quelles campagnes et quels canaux génèrent le plus de conversions. Doublez vos efforts sur ce qui fonctionne et abandonnez ce qui est inefficace.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4">À éviter</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-4 bg-red-50 rounded-lg">
+                                <div class="text-red-600 mr-4 mt-1">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Spam</h4>
+                                    <p class="text-red-600 text-sm">Ne spammez pas les forums ou les groupes avec vos liens. Cela nuit à votre réputation et peut entraîner la suppression de votre compte.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-4 bg-red-50 rounded-lg">
+                                <div class="text-red-600 mr-4 mt-1">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Fausses promesses</h4>
+                                    <p class="text-red-600 text-sm">Ne promettez pas des rendements garantis ou des profits faciles. Le trading comporte des risques et vous devez être transparent à ce sujet.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start p-4 bg-red-50 rounded-lg">
+                                <div class="text-red-600 mr-4 mt-1">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Publicité trompeuse</h4>
+                                    <p class="text-red-600 text-sm">N'utilisez pas de publicité trompeuse ou de fausses représentations de la plateforme Deriv. Respectez toujours les directives du programme.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section id="faq" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">FAQ</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
+                                <span class="font-medium">Combien de temps faut-il pour recevoir mon premier paiement ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer p-4 hidden">
+                                <p class="text-gray-700">Les paiements sont effectués deux fois par mois, autour des 1er et 15 du mois. Votre premier paiement interviendra lors du premier cycle de paiement après avoir atteint le seuil minimum de 50 USD. Par exemple, si vous atteignez le seuil le 10 du mois, vous serez payé autour du 15.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
+                                <span class="font-medium">Puis-je promouvoir Deriv sur plusieurs sites/web ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer p-4 hidden">
+                                <p class="text-gray-700">Oui, vous pouvez promouvoir Deriv sur autant de sites que vous le souhaitez. Assurez-vous simplement d'utiliser vos liens de suivi personnels pour chaque site afin de pouvoir analyser les performances de chaque source de trafic.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
+                                <span class="font-medium">Comment puis-je augmenter mon taux de commission ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer p-4 hidden">
+                                <p class="text-gray-700">Votre taux de commission peut augmenter en fonction de votre performance. Les affiliés qui génèrent un volume élevé de clients actifs peuvent bénéficier de taux premium. Contactez notre équipe de partenariat pour discuter des possibilités d'amélioration de votre taux.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <button class="faq-question w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex justify-between items-center">
+                                <span class="font-medium">Que se passe-t-il si un client que j'ai parrainé arrête de trader ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="faq-answer p-4 hidden">
+                                <p class="text-gray-700">Vous ne recevrez des commissions que lorsque vos filleuls effectuent des trades. Si un client arrête de trader, vous ne recevrez plus de commissions pour ce client. C'est pourquoi il est important de parrainer des traders sérieux et de maintenir une relation avec eux.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section id="contact" class="mb-16 scroll-mt-24">
+                    <h2 class="text-3xl font-bold mb-6 pb-2 border-b border-gray-200">Contact</h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4">Besoin d'aide supplémentaire ?</h3>
+                        <p class="text-gray-700 mb-6">Notre équipe de support et notre communauté sont là pour vous aider :</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-coral/10 text-coral p-3 rounded-full mr-4">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <h4 class="font-semibold">Email de support</h4>
+                                </div>
+                                <p class="text-gray-700 mb-4">Pour les questions techniques ou concernant votre compte :</p>
+                                <a href="mailto:support@deriv-affiliates.com" class="text-coral hover:underline">support@deriv-affiliates.com</a>
+                            </div>
+                            
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-coral/10 text-coral p-3 rounded-full mr-4">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <h4 class="font-semibold">Communauté WhatsApp</h4>
+                                </div>
+                                <p class="text-gray-700 mb-4">Rejoignez notre communauté africaine d'affiliés :</p>
+                                <a href="https://chat.whatsapp.com/GJeS8smtjoJ8Lf3fREBGSG" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg inline-flex items-center">
+                                    <i class="fab fa-whatsapp mr-2"></i> Rejoindre le groupe
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Final CTA -->
+                <section class="bg-coral text-white p-8 rounded-xl text-center mb-16">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">Prêt à commencer ?</h2>
+                    <p class="text-xl mb-6">Rejoignez notre programme d'affiliation dès aujourd'hui et commencez à générer des revenus passifs.</p>
+                    <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="bg-white text-coral px-8 py-3 rounded-lg font-semibold inline-block hover:bg-gray-100 transition">Devenir affilié maintenant</a>
+                </section>
+            </div>
+        </main>
+    </div>
+
+     <!-- Footer -->
+     <footer class="bg-white-900 text-white py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- Colonne 1 - À propos -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">À propos de nous</h3>
+              <p class="text-gray-400 text-sm mb-4">
+                Communauté africaine de partenaires Deriv. Nous facilitons l'accès aux opportunités de trading en Afrique.
+              </p>
+              <p class="text-gray-400 text-sm">
+                <strong>Note :</strong> Nous ne sommes pas le broker Deriv, mais des marketeurs indépendants de leur programme d'affiliation.
+              </p>
+            </div>
+      
+            <!-- Colonne 2 - Liens rapides -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Liens rapides</h3>
+              <ul class="space-y-2">
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Comment ça marche</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Nos statistiques</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Témoignages</a></li>
+                <li><a href="#faq" class="text-gray-400 hover:text-white text-sm transition">FAQ</a></li>
+              </ul>
+            </div>
+      
+            <!-- Colonne 3 - Ressources -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Ressources</h3>
+              <ul class="space-y-2">
+                <li><a href="/documentation.html" class="text-gray-400 hover:text-white text-sm transition">Documents légaux</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Supports marketing</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Tutoriels vidéo</a></li>
+              </ul>
+            </div>
+      
+            <!-- Colonne 4 - Actions -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Compte Deriv</h3>
+              <div class="space-y-3">
+                <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" target="_blank" 
+                   class="block bg-red-600 hover:bg-red-700 text-white text-center py-2 px-4 rounded-md text-sm font-medium transition">
+                  Créer votre compte
+                </a>
+                <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" target="_blank" 
+                   class="block border border-gray-600 bg-gray-800 hover:bg-gray-800 text-white text-center py-2 px-4 rounded-md text-sm font-medium transition">
+                  Se connecter
+                </a>
+              </div>
+              
+              <div class="mt-6">
+                <h4 class="text-sm font-semibold mb-2">Nous suivre</h4>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-gray-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                    </svg>
+                  </a>
+                  <a href="#" class="text-gray-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                    </svg>
+                  </a>
+                  <a href="#" class="text-gray-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Copyright et mentions -->
+          <div class="pt-8 border-t border-gray-800 text-center">
+            <div class="text-gray-400 text-sm mb-2">
+              <p>© 2024 Communauté Africaine Deriv. Tous droits réservés.</p>
+            </div>
+            <p class="text-xs text-gray-600 mt-4">
+              Deriv est une marque déposée. Ce site est maintenu par des marketeurs indépendants du programme d'affiliation Deriv.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+        // Menu mobile
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // FAQ Accordéon
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                // Toggle current item
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+                
+                // Close other items in the same section
+                const parentSection = question.closest('section');
+                parentSection.querySelectorAll('.faq-question').forEach(otherQuestion => {
+                    if (otherQuestion !== question) {
+                        otherQuestion.nextElementSibling.classList.add('hidden');
+                        otherQuestion.querySelector('i').classList.remove('rotate-180');
+                    }
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update URL without jumping
+                    if (history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        location.hash = targetId;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

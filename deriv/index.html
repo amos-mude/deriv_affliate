@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliation Deriv</title>
+    <link rel="icon" type="image/png" href="deriv.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coral: '#FF444F',
+                        'coral-hover': '#E12E3A',
+                        gold: '#DAAF0A',
+                        'gold-hover': '#BD9808',
+                        'neutral-light': '#F6F7F8',
+                        'black-72': 'rgba(0,0,0,0.72)',
+                        'black-8': 'rgba(0,0,0,0.08)',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'large': '24px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        @keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Applique l'animation pour la première ligne */
+.payment-icon:first-child, 
+.payment-icon:nth-child(2),
+.payment-icon:nth-child(3) {
+  opacity: 0;
+  animation: fadeInRight 0.6s ease-in-out forwards;
+}
+
+/* Applique l'animation pour la deuxième ligne */
+.payment-icon:nth-child(4),
+.payment-icon:nth-child(5),
+.payment-icon:nth-child(6) {
+  opacity: 0;
+  animation: fadeInLeft 0.6s ease-in-out forwards;
+}
+
+.payment-icon:nth-child(1) { animation-delay: 0.2s; }
+.payment-icon:nth-child(2) { animation-delay: 0.4s; }
+.payment-icon:nth-child(3) { animation-delay: 0.6s; }
+.payment-icon:nth-child(4) { animation-delay: 0.8s; }
+.payment-icon:nth-child(5) { animation-delay: 1s; }
+.payment-icon:nth-child(6) { animation-delay: 1.2s; }
+
+
+
+    </style>
+</head>
+<body class="font-inter bg-white text-gray-900">
+    <!-- Header -->
+    <header class="sticky top-0 bg-white z-50 shadow-sm rounded-b-[24px]">
+        <div class="container mx-auto px-4 py-4 max-w-6xl">
+            <div class="flex justify-between items-center">
+                <div class="logo_icon w-embed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="97" height="48" viewBox="0 0 97 48" fill="none">
+                        <g clip-path="url(#clip0_3441_2262)">
+                            <path d="M26.9238 10.8089L25.6912 17.7964H21.4125C17.4207 17.7964 13.6159 21.0293 12.9107 25.0195L12.6122 26.7179C11.9103 30.7082 14.5737 33.9411 18.5654 33.9411H22.1341C25.0434 33.9411 27.815 31.5869 28.3267 28.6787L31.6133 10.0553L26.9238 10.8089ZM23.8878 28.0196C23.7304 28.918 22.9213 29.6492 22.0226 29.6492H19.8545C18.0603 29.6492 16.8598 28.1934 17.1747 26.3966L17.3617 25.3376C17.6798 23.5441 19.392 22.0851 21.1861 22.0851H24.9347L23.8878 28.0196ZM59.8757 33.9408L62.6834 18.019H67.1245L64.3168 33.9408H59.8757ZM60.3561 18.2026C60.1335 19.4655 59.9099 20.7284 59.6873 21.9913C57.5833 21.3377 55.4125 21.5458 54.7456 21.6788C54.0254 25.7671 53.3042 29.8564 52.583 33.9447H48.1389C48.7424 30.5239 50.8042 18.8415 50.8042 18.8415C52.2496 18.2432 55.7991 17.0289 60.3561 18.2026ZM42.3494 17.7937H38.8924C35.5238 17.7937 32.3128 20.5217 31.719 23.8889L31.0204 27.8464C30.4267 31.2137 32.6736 33.9417 36.0422 33.9417H43.3959L44.1503 29.6629H37.2392C36.1175 29.6629 35.3664 28.7546 35.5665 27.63L35.5895 27.4956H46.7316L47.3679 23.8889C47.9615 20.5217 45.7148 17.7937 42.3462 17.7937H42.3494ZM42.9103 23.548L42.8841 23.7775H36.2586L36.2947 23.5742C36.4947 22.4528 37.5181 21.4659 38.643 21.4659H41.231C42.343 21.4659 43.0941 22.4365 42.9103 23.548ZM80.0083 18.019H84.4526C82.9387 22.0426 79.4691 28.887 76.1082 33.9408H71.6639C70.1212 29.1308 69.125 22.429 68.9349 18.019H73.3794C73.4596 19.4576 74.1038 24.7933 74.839 28.5208C76.8555 24.8945 79.0786 20.1366 80.0049 18.019H80.0083Z" fill="currentColor"></path>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_3441_2262">
+                                <rect width="72" height="23.8894" fill="white" transform="translate(12.5 10.0553)"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    
+                </div>
+                
+                <!-- Menu desktop -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-6 items-center">
+                        <li><a href="#avantages" class="font-medium text-sm hover:text-coral transition">Avantages</a></li>
+                        <li><a href="#paiements" class="font-medium text-sm hover:text-coral transition">Paiements</a></li>
+                        <li><a href="#avis" class="font-medium text-sm hover:text-coral transition">Avis</a></li>
+                        <li><a href="#faq" class="font-medium text-sm hover:text-coral transition">FAQ</a></li>
+                        <li><a href="#inscription" class="bg-coral text-white px-4 py-2 rounded-[24px] font-semibold text-sm hover:bg-coral-hover hover:-translate-y-0.5 transition">S'inscrire</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Menu mobile -->
+                <button id="hamburger" class="md:hidden text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Menu mobile déroulant -->
+            <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 bg-white mt-4 py-4 px-6 shadow-lg rounded-lg">
+                <ul class="space-y-4">
+                    <li><a href="#avantages" class="block font-medium hover:text-coral transition">Avantages</a></li>
+                    <li><a href="#galerie" class="block font-medium hover:text-coral transition">Galerie</a></li>
+                    <li><a href="#paiements" class="block font-medium hover:text-coral transition">Paiements</a></li>
+                    <li><a href="#avis" class="block font-medium hover:text-coral transition">Avis</a></li>
+                    <li><a href="#faq" class="block font-medium hover:text-coral transition">FAQ</a></li>
+                    <li><a href="#inscription" class="block bg-coral text-white px-4 py-2 rounded-[24px] font-semibold text-center mt-2 hover:bg-coral-hover transition">S'inscrire</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 max-w-6xl">
+        <div id="bottom-banner" tabindex="-1" class="fixed bottom-0 left-0 z-50 flex justify-between w-full p-4 border-t border-gray-200 bg-gray-900 text-white">
+            <div class="flex items-center mx-auto">
+                <p class="flex items-center text-sm font-normal">
+                    <span class="inline-flex p-1 me-3 bg-gray-700 rounded-full w-6 h-6 items-center justify-center">
+                        <svg class="w-3.5 h-3.5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M18.435 7.546A2.32 2.32 0 0 1 17.7 5.77a3.354 3.354 0 0 0-3.47-3.47 2.322 2.322 0 0 1-1.776-.736 3.357 3.357 0 0 0-4.907 0 2.281 2.281 0 0 1-1.776.736 3.414 3.414 0 0 0-2.489.981 3.372 3.372 0 0 0-.982 2.49 2.319 2.319 0 0 1-.736 1.775 3.36 3.36 0 0 0 0 4.908A2.317 2.317 0 0 1 2.3 14.23a3.356 3.356 0 0 0 3.47 3.47 2.318 2.318 0 0 1 1.777.737 3.36 3.36 0 0 0 4.907 0 2.36 2.36 0 0 1 1.776-.737 3.356 3.356 0 0 0 3.469-3.47 2.319 2.319 0 0 1 .736-1.775 3.359 3.359 0 0 0 0-4.908ZM8.5 5.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm3 9.063a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm2.207-6.856-6 6a1 1 0 0 1-1.414-1.414l6-6a1 1 0 0 1 1.414 1.414Z"/>
+                        </svg>
+                        <span class="sr-only">Affiliate Offer</span>
+                    </span>
+                    <span>Devenez partenaire affilié et gagnez jusqu'à 1.5% de commission <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="flex items-center ms-0 text-sm font-medium text-blue-600 md:ms-1 md:inline-flex dark:text-blue-500 hover:underline">Devenir partenaire <svg class="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+          </svg></a></span>
+                </p>
+            </div>
+            <div class="flex items-center">
+                <button data-dismiss-target="#bottom-banner" type="button" class="shrink-0 inline-flex justify-center w-7 h-7 items-center text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Fermer la bannière</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Hero Split Screen -->
+        <section class="min-h-[80vh] flex flex-col md:flex-row items-center py-12 bg-cover bg-center bg-no-repeat" style="background-image: url('https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/66585fe0e1dc7e70cc75d804_cta-10.webp');">
+            <div class="md:w-1/2 md:pr-8 mb-12 md:mb-0 bg-white/80 p-6 rounded-xl backdrop-blur-sm">
+              <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">Générez des revenus passifs avec Deriv</h1>
+              <p class="text-lg text-gray-700 mb-8 max-w-md">Devenez partenaire affilié et gagnez jusqu'à 1.5% de commission sur chaque trade de vos filleuls - sans trader vous-même !</p>
+              
+              <!-- Avatars superposés -->
+              <div class="mb-8">
+                <p class="text-sm text-gray-700 mb-2">Rejoint par plus de 10,000 affiliés</p>
+                <div class="flex -space-x-4 rtl:space-x-reverse">
+                  <img class="w-10 h-10 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                  <img class="w-10 h-10 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                  <img class="w-10 h-10 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/22.jpg" alt="">
+                  <img class="w-10 h-10 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/women/33.jpg" alt="">
+                  <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-2 border-white rounded-full hover:bg-gray-600" href="#">+99</a>
+                </div>
+              </div>
+              
+              <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="bg-red-600 text-white px-6 py-3 rounded-full font-semibold inline-block hover:bg-red-700 transition-transform transform hover:-translate-y-0.5">
+                Commencer maintenant
+              </a>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center">
+              <img src="photo.webp" 
+                   alt="Dashboard Deriv" 
+                   class="rounded-xl shadow-xl w-full max-w-lg">
+            </div>
+            
+          </section>
+        </div>
+        
+          <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                
+                <div>
+                  <h3 class="text-4xl font-bold text-gray-900">115K+</h3>
+                  <p class="text-gray-600">membres</p>
+                </div>
+                
+                <div>
+                  <h3 class="text-4xl font-bold text-gray-900">$47M+</h3>
+                  <p class="text-gray-600">versé depuis le début</p>
+                </div>
+                
+                <div>
+                  <h3 class="text-4xl font-bold text-gray-900">190+</h3>
+                  <p class="text-gray-600">pays</p>
+                </div>
+                
+                <div>
+                  <h3 class="text-4xl font-bold text-gray-900">1M+</h3>
+                  <p class="text-gray-600">clients</p>
+                </div>
+          
+              </div>
+            </div>
+          </section>
+
+          
+          <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+              <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Image avec effet gradient -->
+                <div class="lg:w-1/2 relative">
+                  <div class="bg-gradient-to-r from-blue-500/10 to-red-500/10 rounded-2xl p-4">
+                    <img 
+                      src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/669e11a842c00534ce73ef54_New%20Mobile%20Laptop%20(1).webp" 
+                      alt="Laptop and smartphone displaying financial charts and trading application interface by Deriv"
+                      class="w-full h-auto rounded-xl shadow-lg transform hover:scale-[1.02] transition-transform duration-300"
+                      loading="lazy"
+                    >
+                  </div>
+                </div>
+          
+                <!-- Contenu texte -->
+                <div class="lg:w-1/2">
+                  <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">À propos de Deriv</h2>
+                  <div class="space-y-4 text-gray-700">
+                    <p class="text-lg">
+                      Deriv s'est imposé en fournissant des produits de pointe reconnus mondialement.
+                    </p>
+                    <p class="text-lg">
+                      Nous offrons le plus large éventail de produits dérivés à trader, avec des prix transparents et des spreads serrés, ce que plus de 2,5 millions de traders en ligne du monde entier trouvent intéressant.
+                    </p>
+                    <p class="text-lg">
+                      Notre technologie offre une expérience de trading intuitive et puissante, ce qui permet à nos clients de mieux comprendre les risques et de prendre des décisions de trading éclairées.
+                    </p>
+                  </div>
+          
+                  <!-- Boutons optionnels -->
+                  <div class="mt-8 flex flex-wrap gap-4">
+                    <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                      Découvrir nos produits
+                    </a>
+                    <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" class="border border-gray-300 hover:bg-gray-50 text-gray-800 px-6 py-3 rounded-lg font-medium transition-colors">
+                      En savoir plus
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        <!-- Avantages -->
+        <section id="avantages" class="py-16 bg-gray-0">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Pourquoi devenir un partenaire de Deriv</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Carte 1 - Paiements réguliers -->
+                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                        <div class="text-red-600 text-4xl mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Des paiements réguliers avec des retraits instantanés</h3>
+                        <p class="text-gray-600">Nous payons vos commissions en temps opportun. Profitez d'une caisse disponible 24 h sur 24 pour un retrait de vos gains sans tracas.</p>
+                    </div>
+        
+                    <!-- Carte 2 - Suivi revenus -->
+                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                        <div class="text-red-600 text-4xl mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Un suivi de vos revenus</h3>
+                        <p class="text-gray-600">Contrôlez vos performances et surveillez vos revenus à l'aide d'outils de reporting. Suivez l'évolution de vos revenus au fil du temps.</p>
+                    </div>
+        
+                    <!-- Carte 3 - Outils promotionnels -->
+                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                        <div class="text-red-600 text-4xl mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Un accès aux outils promotionnels</h3>
+                        <p class="text-gray-600">Accédez à des outils exclusifs de marketing d'affiliation et à des supports promotionnels pour stimuler vos initiatives.</p>
+                    </div>
+        
+                    <!-- Carte 4 - Produits divers -->
+                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                        <div class="text-red-600 text-4xl mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Large éventail de plateformes</h3>
+                        <p class="text-gray-600">Nos principaux services incluent Deriv GO, Deriv MT5, Deriv cTrader, Deriv X et notre programme de partenariat.</p>
+                    </div>
+        
+                    <!-- Carte 5 - Expérience -->
+                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                        <div class="text-red-600 text-4xl mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Plus de 25 ans, plus de 190 pays</h3>
+                        <p class="text-gray-600">Nous sommes présents dans le secteur depuis plus de 25 ans, dans plus de 190 pays, avec plus de 300 000 traders actifs chaque mois.</p>
+                    </div>
+        
+                    <!-- Carte 6 - Support -->
+                    <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                        <div class="text-red-600 text-4xl mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Soutien d'un expert</h3>
+                        <p class="text-gray-600">Accédez à une promotion de qualité, des supports pédagogiques et une assistance 24h/7j pour vous aider à vous développer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="bg-gray-900 text-white py-12 px-6 rounded-xl">
+            <div class="max-w-4xl mx-auto text-center">
+              <div class="mb-4">
+                <h2 class="text-3xl font-bold">Devenez un partenaire de Deriv</h2>
+              </div>
+              <div class="flex justify-center -space-x-4 rtl:space-x-reverse">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/11.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/women/22.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/33.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/55.jpg" alt="">
+            </div>
+              <p class="text-lg mb-6">
+                Rejoignez notre programme de partenariat. Parrainez et gagnez de l'argent.
+                Augmentez votre potentiel grâce à nos plans de commission personnalisables.
+              </p>
+              <div class="flex justify-center gap-4 flex-wrap">
+                <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" target="_blank"
+                   class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
+                  Nous rejoindre maintenant
+                </a>
+                <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" target="_blank"
+                   class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 hidden">
+                  Nous rejoindre maintenant
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+        <!-- Nouvelle Section Galerie -->
+        <section id="galerie" class="py-16 bg-white">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-6">Notre communauté grandit chaque jour  et voici comment</h2>
+                <p class="text-black-72 mb-8 max-w-2xl mx-auto">Découvrez comment nos affiliés réussissent avec Deriv</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="grid gap-4">
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Affilié Deriv">
+                        </div>
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Formation">
+                        </div>
+                    </div>
+                    <div class="grid gap-4">
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Réunion">
+                        </div>
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Conférence">
+                        </div>
+                    </div>
+                    <div class="grid gap-4">
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Graphiques">
+                        </div>
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Succès">
+                        </div>
+                    </div>
+                    <div class="grid gap-4">
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Résultats">
+                        </div>
+                        <div>
+                            <img class="h-auto max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Communauté">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="paiements" class="py-16">
+            <div class="text-center">
+              <h2 class="text-3xl font-bold mb-4">Choisissez le moyen de paiement qui vous convient</h2>
+              <p class="text-black-72 mb-8 max-w-2xl mx-auto">
+                Recevez facilement vos commissions grâce à ces méthodes de paiement fiables et sécurisées.
+              </p>
+          
+              <!-- Première ligne d'icônes de gauche à droite -->
+              <div class="grid grid-cols-2 md:grid-cols-6 gap-6 justify-center items-center">
+                <!-- Première icône avec arrière-plan -->
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69b1_payment%20method-mpesa.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69b0_payment%20method-visa%20electron.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69bd_payment%20method-vodafone.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69b9_payment%20method-maestro.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69a2_payment%20method-bnb.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c699e_payment%20method-mastercard.svg" alt="" class="h-12">
+                </div>
+              </div>
+          
+              <!-- Espace entre les deux lignes -->
+              <div class="mb-8"></div>
+          
+              <!-- Deuxième ligne d'icônes de droite à gauche -->
+              <div class="grid grid-cols-2 md:grid-cols-6 gap-6 justify-center items-center">
+                <!-- Icônes de la deuxième ligne de droite à gauche -->
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69ac_payment%20method-perfect%20money.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c699d_payment%20method-deriv%20p2p.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69bd_payment%20method-vodafone.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69bb_payment%20method-pago%20efectivo.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                  <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c69be_payment%20method-bitcoin%20cash.svg" alt="" class="h-12">
+                </div>
+                <div class="bg-[#181c25] p-4 rounded-lg shadow-sm payment-icon flex justify-center items-center">
+                    <img src="https://cdn.prod.website-files.com/66585fe0e1dc7e70cc75d440/6757df573bf331c84b6c699f_payment%20method-astropay.svg" alt="" class="h-12">
+                  </div>
+              </div>
+            </div>
+          </section>
+          
+          
+          
+          
+
+      <!-- Avis -->
+<section id="avis" class="py-16 bg-white">
+    <h2 class="text-3xl font-bold text-center mb-12">Témoignages de nos Affiliés</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-8 rounded-xl shadow-sm opacity-0 transition-opacity duration-700 ease-in-out transform hover:scale-105 hover:opacity-100">
+            <div class="flex items-center mb-4">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jean" class="w-12 h-12 rounded-full mr-4 border-2 border-coral">
+                <div>
+                    <h3 class="font-semibold">Jean D.</h3>
+                    <p class="text-black-72 text-sm">Affilié depuis 2021</p>
+                </div>
+            </div>
+            <p class="mb-4">"Je génère environ 800€/mois avec ce programme. Les paiements sont toujours ponctuels."</p>
+            <div class="text-gold">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <div class="bg-white p-8 rounded-xl shadow-sm opacity-0 transition-opacity duration-700 ease-in-out transform hover:scale-105 hover:opacity-100">
+            <div class="flex items-center mb-4">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah" class="w-12 h-12 rounded-full mr-4 border-2 border-coral">
+                <div>
+                    <h3 class="font-semibold">Sarah K.</h3>
+                    <p class="text-black-72 text-sm">Influenceuse Finance</p>
+                </div>
+            </div>
+            <p class="mb-4">"Excellent programme d'affiliation. Je recommande à tous mes followers."</p>
+            <div class="text-gold">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+        
+            <!-- Groupe d'avatars supplémentaires -->
+            
+        </section>
+
+       <!-- FAQ -->
+<section id="faq" class="py-16">
+    <h2 class="text-3xl font-bold text-center mb-4">Vous avez des questions ? Nous avons les réponses</h2>
+    <p class="text-center text-gray-600 mb-12 max-w-xl mx-auto">
+        Voici les réponses aux questions que l’on nous pose le plus souvent à propos de notre programme.
+    </p>
+    <div class="max-w-2xl mx-auto">
+        <!-- Question 1 -->
+        <div class="faq-item mb-4 border border-black-8 rounded-lg overflow-hidden">
+            <div class="faq-question bg-neutral-light p-4 cursor-pointer flex justify-between items-center">
+                <span class="font-semibold">Comment fonctionne le programme ?</span>
+                <i class="fas fa-chevron-down transition-transform"></i>
+            </div>
+            <div class="faq-answer px-4 hidden">
+                <p class="py-4">Vous gagnez des commissions sur chaque trade effectué par les traders que vous parrainez, jusqu'à 10 niveaux de profondeur.</p>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="faq-item mb-4 border border-black-8 rounded-lg overflow-hidden">
+            <div class="faq-question bg-neutral-light p-4 cursor-pointer flex justify-between items-center">
+                <span class="font-semibold">Quand suis-je payé ?</span>
+                <i class="fas fa-chevron-down transition-transform"></i>
+            </div>
+            <div class="faq-answer px-4 hidden">
+                <p class="py-4">Les paiements sont effectués mensuellement, avec un seuil minimum de 50€.</p>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="faq-item mb-4 border border-black-8 rounded-lg overflow-hidden">
+            <div class="faq-question bg-neutral-light p-4 cursor-pointer flex justify-between items-center">
+                <span class="font-semibold">Quels sont les moyens de paiement disponibles ?</span>
+                <i class="fas fa-chevron-down transition-transform"></i>
+            </div>
+            <div class="faq-answer px-4 hidden">
+                <p class="py-4">Vous pouvez recevoir vos commissions via Visa, Mastercard, Skrill, Neteller et même en Bitcoin.</p>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="faq-item mb-4 border border-black-8 rounded-lg overflow-hidden">
+            <div class="faq-question bg-neutral-light p-4 cursor-pointer flex justify-between items-center">
+                <span class="font-semibold">Est-ce que je dois investir pour commencer ?</span>
+                <i class="fas fa-chevron-down transition-transform"></i>
+            </div>
+            <div class="faq-answer px-4 hidden">
+                <p class="py-4">Non, vous n'avez besoin d'aucun investissement initial pour devenir partenaire. Vous pouvez commencer gratuitement.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- CTA -->
+        
+          <div class="bg-gray-900 text-white py-12 px-6 rounded-xl">
+            <div class="max-w-4xl mx-auto text-center">
+              <div class="mb-4">
+                <h2 class="text-3xl font-bold">Devenez un partenaire de Deriv</h2>
+              </div>
+              <div class="flex justify-center -space-x-4 rtl:space-x-reverse mb-6">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/11.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/women/22.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/33.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                <img class="w-12 h-12 border-2 border-white rounded-full" src="https://randomuser.me/api/portraits/men/55.jpg" alt="">
+              </div>
+              <p class="text-lg mb-8">
+                Rejoignez notre programme de partenariat. Parrainez et gagnez de l'argent.
+                Augmentez votre potentiel grâce à nos plans de commission personnalisables.
+              </p>
+              <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- Bouton principal -->
+                <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" target="_blank"
+                   class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex-1 sm:flex-none text-center">
+                  Nous rejoindre maintenant
+                </a>
+                
+                <!-- Bouton WhatsApp -->
+                <a href="https://chat.whatsapp.com/GJeS8smtjoJ8Lf3fREBGSG" 
+                   target="_blank"
+                   class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex-1 sm:flex-none text-center flex items-center justify-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                  </svg>
+                  Rejoindre notre communauté
+                </a>
+              </div>
+            </div>
+          </div>
+
+          
+    </main>
+    <div class="mb-8"></div>
+    <!-- Footer -->
+    <footer class="bg-white-900 text-white py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- Colonne 1 - À propos -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">À propos de nous</h3>
+              <p class="text-gray-400 text-sm mb-4">
+                Communauté africaine de partenaires Deriv. Nous facilitons l'accès aux opportunités de trading en Afrique.
+              </p>
+              <p class="text-gray-400 text-sm">
+                <strong>Note :</strong> Nous ne sommes pas le broker Deriv, mais des marketeurs indépendants de leur programme d'affiliation.
+              </p>
+            </div>
+      
+            <!-- Colonne 2 - Liens rapides -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Liens rapides</h3>
+              <ul class="space-y-2">
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Comment ça marche</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Nos statistiques</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Témoignages</a></li>
+                <li><a href="#faq" class="text-gray-400 hover:text-white text-sm transition">FAQ</a></li>
+              </ul>
+            </div>
+      
+            <!-- Colonne 3 - Ressources -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Ressources</h3>
+              <ul class="space-y-2">
+                <li><a href="/documentation.html" class="text-gray-400 hover:text-white text-sm transition">Documents légaux</a></li>
+                <li><a href="/support.html" class="text-gray-400 hover:text-white text-sm transition">Supports marketing</a></li>
+                <li><a href="#" class="text-gray-400 hover:text-white text-sm transition">Tutoriels vidéo</a></li>
+              </ul>
+            </div>
+      
+            <!-- Colonne 4 - Actions -->
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Compte Deriv</h3>
+              <div class="space-y-3">
+                <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" target="_blank" 
+                   class="block bg-red-600 hover:bg-red-700 text-white text-center py-2 px-4 rounded-md text-sm font-medium transition">
+                  Créer votre compte
+                </a>
+                <a href="https://track.deriv.com/_QJHLGKa31L4aV8y6i5dK8WNd7ZgqdRLk/1/" target="_blank" 
+                   class="block border border-gray-600 bg-gray-800 hover:bg-gray-800 text-white text-center py-2 px-4 rounded-md text-sm font-medium transition">
+                  Se connecter
+                </a>
+              </div>
+              
+              <div class="mt-6">
+                <h4 class="text-sm font-semibold mb-2">Nous suivre</h4>
+                <div class="flex space-x-4">
+                  <a href="#" class="text-gray-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                    </svg>
+                  </a>
+                  <a href="#" class="text-gray-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                    </svg>
+                  </a>
+                  <a href="#" class="text-gray-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Copyright et mentions -->
+          <div class="pt-8 border-t border-gray-800 text-center">
+            <div class="text-gray-400 text-sm mb-2">
+              <p>© 2024 Communauté Africaine Deriv. Tous droits réservés.</p>
+            </div>
+            <div class="flex justify-center space-x-4 text-xs text-gray-500">
+              <a href="#" class="hover:text-white transition">Mentions légales</a>
+              <a href="#" class="hover:text-white transition">Politique de confidentialité</a>
+              <a href="#" class="hover:text-white transition">Conditions d'utilisation</a>
+            </div>
+            <p class="text-xs text-gray-600 mt-4">
+              Deriv est une marque déposée. Ce site est maintenu par des marketeurs indépendants du programme d'affiliation Deriv.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+        // Menu mobile
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // FAQ Accordéon
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const icon = question.querySelector('i');
+            
+            question.addEventListener('click', () => {
+                // Toggle current item
+                item.classList.toggle('active');
+                
+                // Rotate icon
+                icon.classList.toggle('rotate-180');
+                
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('i').classList.remove('rotate-180');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.faq-question').forEach((question) => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.opacity-0');
+            
+            function revealOnScroll() {
+                elements.forEach((element) => {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                        element.classList.remove('opacity-0');
+                        element.classList.add('opacity-100');
+                    }
+                });
+            }
+            
+            // Initial check in case elements are already in the viewport
+            revealOnScroll();
+            
+            // Listen to scroll event to reveal elements
+            window.addEventListener('scroll', revealOnScroll);
+        });
+    </script>
+    
+</body>
+</html>
